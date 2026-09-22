@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.game-container {
+    width: 65vw;
+    height: 500px;
+    border: 2px solid black;
+    box-shadow: 0 0 10px black;
+    background-color: rgb(189, 187, 187);
+}
