@@ -4,14 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Snake Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <title>Snake Game</title>
 </head>
 
 <body>
-    <div class="game-container">
-        <canvas id="game-board" width="600" height="500"></canvas>
+    <div class="app-wrapper">
+        <header class="header">
+            <h1>Snake Game</h1>
+        </header>
+
+        <main class="main-content">
+            <div class="game-container">
+                <div class="game-board" id="game-board"></div>
+
+                <div id="game-over-modal" class="game-over-modal hidden">
+                    <div class="modal-content">
+                        <h2>Game Over!</h2>
+                        <button id="restart-btn" class="btn btn-primary">Play Again</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <div class="btn-group">
+                    <button id="start-pause-btn" class="btn btn-primary">Pause</button>
+                    <button id="reset-btn" class="btn btn-secondary">Restart</button>
+                </div>
+                <div class="speed-selector">
+                    <label for="speed-select">Speed:</label>
+                    <select id="speed-select" class="select-input">
+                        <option value="180">Slow</option>
+                        <option value="120" selected>Normal</option>
+                        <option value="75">Fast</option>
+                        <option value="45">Hyper</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="dpad-container">
+                <button class="dpad-btn dpad-up" id="btn-up" aria-label="Up">▲</button>
+                <div class="dpad-row">
+                    <button class="dpad-btn dpad-left" id="btn-left" aria-label="Left">◀</button>
+                    <button class="dpad-btn dpad-center" id="btn-center" aria-label="Action">●</button>
+                    <button class="dpad-btn dpad-right" id="btn-right" aria-label="Right">▶</button>
+                </div>
+                <button class="dpad-btn dpad-down" id="btn-down" aria-label="Down">▼</button>
+            </div>
+
+            <p class="instructions-text">Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to control the snake.
+                Press <strong>Space</strong> to pause.</p>
+        </main>
     </div>
+
+    <script src="game.js"></script>
     <script src="script.js"></script>
 </body>
 
