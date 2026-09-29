@@ -1,11 +1,9 @@
-// Game Engine & State Management
 
 const GRID_SIZE = 20;
 
 let snake = [];
 let direction = { x: 1, y: 0 };
 let nextDirection = { x: 1, y: 0 };
-let food = { x: 5, y: 5 };
 let gameInterval = null;
 let isPaused = false;
 let isGameOver = false;
@@ -22,20 +20,6 @@ const initSnake = () => {
     ];
     direction = { x: 1, y: 0 };
     nextDirection = { x: 1, y: 0 };
-};
-
-const spawnFood = () => {
-    let validPosition = false;
-    let newX, newY;
-
-    while (!validPosition) {
-        newX = Math.floor(Math.random() * GRID_SIZE);
-        newY = Math.floor(Math.random() * GRID_SIZE);
-
-        validPosition = !snake.some(segment => segment.x === newX && segment.y === newY);
-    }
-
-    food = { x: newX, y: newY };
 };
 
 const changeDirection = (newDir) => {

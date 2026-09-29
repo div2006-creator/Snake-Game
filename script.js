@@ -1,4 +1,8 @@
 const board = document.getElementById("game-board");
+const scoreVal = document.getElementById("score-val");
+const highScoreVal = document.getElementById("high-score-val");
+const finalScore = document.getElementById("final-score");
+const newHighScoreMsg = document.getElementById("new-high-score-msg");
 const gameOverModal = document.getElementById("game-over-modal");
 const startPauseBtn = document.getElementById("start-pause-btn");
 const resetBtn = document.getElementById("reset-btn");
@@ -62,11 +66,21 @@ const Render = () => {
         cb.checked = true;
         cb.classList.add("food");
     }
+
+    scoreVal.textContent = score;
+    highScoreVal.textContent = highScore;
 };
 
 const triggerGameOver = () => {
     isGameOver = true;
     stopGameLoop();
+
+    finalScore.textContent = score;
+    if (score === highScore && score > 0) {
+        newHighScoreMsg.classList.remove("hidden");
+    } else {
+        newHighScoreMsg.classList.add("hidden");
+    }
 
     gameOverModal.classList.remove("hidden");
     startPauseBtn.textContent = "Start";
@@ -75,6 +89,7 @@ const triggerGameOver = () => {
 const resetGame = () => {
     isGameOver = false;
     isPaused = false;
+    score = 0;
     gameOverModal.classList.add("hidden");
     startPauseBtn.textContent = "Pause";
 
@@ -151,6 +166,7 @@ speedSelect.addEventListener("change", (e) => {
 
 const init = () => {
     createBoard();
+    highScoreVal.textContent = highScore;
     resetGame();
 };
 

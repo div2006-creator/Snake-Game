@@ -6,16 +6,10 @@
     --border-color: #cbd5e1;
     --board-border: #1e293b;
     --grid-line: #e2e8f0;
-
-    /* Snake & Food colors */
     --snake-color: #16a34a;
-    /* Vivid green matching screenshot */
     --snake-head-color: #15803d;
-    /* Darker green for head */
-    --food-color: #dc2626;
-    /* Crisp red for food */
-    --food-glow: rgba(220, 38, 38, 0.4);
-
+    --food-color: #dc26bb;
+    --food-glow: rgba(38, 84, 220, 0.4);
     --primary-btn: #0f172a;
     --primary-btn-hover: #1e293b;
     --secondary-btn: #e2e8f0;
@@ -48,11 +42,10 @@ body {
     gap: 16px;
 }
 
-/* Header */
 .header {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     background: var(--card-bg);
     padding: 14px 20px;
@@ -67,7 +60,30 @@ body {
     letter-spacing: -0.5px;
 }
 
-/* Main Container & Board */
+.score-board {
+    display: flex;
+    gap: 16px;
+}
+
+.score-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.score-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+}
+
+.score-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
 .main-content {
     width: 100%;
     display: flex;
@@ -101,7 +117,6 @@ body {
     overflow: hidden;
 }
 
-/* Checkbox Cell Styling */
 .cell-checkbox {
     appearance: none;
     -webkit-appearance: none;
@@ -192,7 +207,23 @@ body {
 .modal-content h2 {
     font-size: 1.5rem;
     color: #ef4444;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
+}
+
+.final-score-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.new-high-score {
+    color: #eab308;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.new-high-score.hidden {
+    display: none;
 }
 
 
@@ -242,6 +273,15 @@ body {
     background-color: var(--secondary-btn-hover);
 }
 
+.btn-icon {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.btn-icon:hover {
+    background: var(--secondary-btn);
+}
 
 .speed-selector {
     display: flex;
@@ -313,5 +353,9 @@ body {
 
     .header h1 {
         font-size: 1.2rem;
+    }
+
+    .score-value {
+        font-size: 1.1rem;
     }
 }
