@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -7,43 +7,129 @@
     <title>Checkbox Snake Game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="app-wrapper">
+        <!-- Top App Bar / Header -->
         <header class="header">
-            <h1>Snake Game</h1>
+            <div class="brand">
+                <span class="brand-icon" aria-hidden="true">🟩</span>
+                <div class="brand-text">
+                    <h1>Checkbox Snake</h1>
+                    <span class="version-tag">PRO</span>
+                </div>
+            </div>
+
+            <!-- Scoreboard Display -->
+            <div class="score-board">
+                <div class="score-card">
+                    <span class="score-label">SCORE</span>
+                    <span class="score-value" id="score-val">0</span>
+                </div>
+                <div class="score-card highlight">
+                    <span class="score-label">BEST</span>
+                    <span class="score-value" id="high-score-val">0</span>
+                </div>
+                <div class="score-card">
+                    <span class="score-label">APPLES</span>
+                    <span class="score-value" id="food-val">0</span>
+                </div>
+            </div>
+
+            <!-- Quick Action Toggles -->
+            <div class="header-actions">
+                <button id="sound-toggle-btn" class="icon-btn" aria-label="Toggle Sound" title="Toggle Sound (M)">
+                    <span id="sound-icon">🔊</span>
+                </button>
+                <button id="theme-toggle-btn" class="icon-btn" aria-label="Toggle Theme" title="Toggle Light/Dark Theme (T)">
+                    <span id="theme-icon">🌙</span>
+                </button>
+            </div>
         </header>
 
+        <!-- Main Game Area -->
         <main class="main-content">
-            <div class="game-container">
-                <div class="game-board" id="game-board"></div>
+            <div class="game-container" id="game-container">
+                <div class="game-board" id="game-board" tabindex="0" role="region" aria-label="Snake Game Grid"></div>
 
-                <div id="game-over-modal" class="game-over-modal hidden">
+                <!-- Pause Overlay Banner -->
+                <div id="pause-overlay" class="pause-overlay hidden">
+                    <div class="pause-badge">
+                        <span class="pause-icon">⏸</span>
+                        <span>PAUSED</span>
+                        <small>Press Space to Resume</small>
+                    </div>
+                </div>
+
+                <!-- Game Over / Victory Modal -->
+                <div id="game-over-modal" class="game-over-modal hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
                     <div class="modal-content">
-                        <h2>Game Over!</h2>
-                        <button id="restart-btn" class="btn btn-primary">Play Again</button>
+                        <div class="modal-icon" id="modal-icon">💀</div>
+                        <h2 id="modal-title">Game Over!</h2>
+                        <p id="modal-subtitle" class="modal-subtitle">You hit the wall</p>
+
+                        <div id="new-high-score-msg" class="new-high-score hidden">
+                            ✨ NEW HIGH SCORE! ✨
+                        </div>
+
+                        <div class="modal-stats-grid">
+                            <div class="modal-stat-card">
+                                <span class="stat-title">Score</span>
+                                <span class="stat-value" id="final-score">0</span>
+                            </div>
+                            <div class="modal-stat-card">
+                                <span class="stat-title">Apples</span>
+                                <span class="stat-value" id="modal-food-count">0</span>
+                            </div>
+                            <div class="modal-stat-card">
+                                <span class="stat-title">Best</span>
+                                <span class="stat-value" id="modal-high-score">0</span>
+                            </div>
+                        </div>
+
+                        <div class="modal-actions">
+                            <button id="restart-btn" class="btn btn-primary btn-lg">Play Again (Space)</button>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Controls & Settings Panel -->
             <div class="controls-panel">
                 <div class="btn-group">
-                    <button id="start-pause-btn" class="btn btn-primary">Pause</button>
-                    <button id="reset-btn" class="btn btn-secondary">Restart</button>
+                    <button id="start-pause-btn" class="btn btn-primary">
+                        <span id="start-pause-icon">⏸</span>
+                        <span id="start-pause-text">Pause</span>
+                    </button>
+                    <button id="reset-btn" class="btn btn-secondary">
+                        <span>🔄</span> Restart
+                    </button>
                 </div>
-                <div class="speed-selector">
-                    <label for="speed-select">Speed:</label>
-                    <select id="speed-select" class="select-input">
-                        <option value="180">Slow</option>
-                        <option value="120" selected>Normal</option>
-                    </select>
+
+                <div class="settings-group">
+                    <div class="setting-item">
+                        <label for="speed-select">Speed:</label>
+                        <select id="speed-select" class="select-input">
+                            <option value="180">Slow</option>
+                            <option value="120" selected>Normal</option>
+                            <option value="75">Fast</option>
+                            <option value="45">Hyper</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <button id="wall-mode-btn" class="btn btn-outline" title="Toggle Wall Wrap Mode">
+                            Walls: <strong id="wall-mode-status">Solid</strong>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="dpad-container">
+            <!-- Virtual D-Pad for Touch and Mobile -->
+            <div class="dpad-container" id="dpad-container">
                 <button class="dpad-btn dpad-up" id="btn-up" aria-label="Up">▲</button>
                 <div class="dpad-row">
                     <button class="dpad-btn dpad-left" id="btn-left" aria-label="Left">◀</button>
@@ -53,11 +139,22 @@
                 <button class="dpad-btn dpad-down" id="btn-down" aria-label="Down">▼</button>
             </div>
 
-            <p class="instructions-text">Use <strong>Arrow Keys</strong> or <strong>WASD</strong> to control the snake.
-                Press <strong>Space</strong> to pause.</p>
+            <!-- Keyboard & Interaction Instructions -->
+            <footer class="instructions-panel">
+                <div class="instructions-row">
+                    <span>Move: <kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> or <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span>
+                    <span class="sep">•</span>
+                    <span>Pause: <kbd>Space</kbd></span>
+                    <span class="sep">•</span>
+                    <span>Restart: <kbd>R</kbd></span>
+                    <span class="sep">•</span>
+                    <span>Mute: <kbd>M</kbd></span>
+                </div>
+            </footer>
         </main>
     </div>
 
+    <!-- Script imports in correct dependency order -->
     <script src="food.js"></script>
     <script src="game.js"></script>
     <script src="script.js"></script>
